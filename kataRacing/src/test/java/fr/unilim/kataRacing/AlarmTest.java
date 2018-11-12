@@ -13,51 +13,51 @@ public class AlarmTest{
 	
 	@Test
 	public void isAlarmOnWhenPressureLow() {
-		Sensor sensor = sensorSensoring(16.0);
+		PressureSensor sensor = sensorSensoring(16.0);
 		
 		Alarm alarm = new Alarm(sensor);
 		
 		alarm.check();
-		assertEquals(alarm.isAlarmOn(), true);
+		assertEquals( true,alarm.isAlarmOn());
 	}
 	
 	
 	@Test
 	public void isAlarmOnWhenPressureHigh() {
-		Sensor sensor = sensorSensoring(22.0);
+		PressureSensor sensor = sensorSensoring(22.0);
 		
 		Alarm alarm = new Alarm(sensor);
 		
 		alarm.check();
-		assertEquals(alarm.isAlarmOn(), true);
+		assertEquals(true, alarm.isAlarmOn());
 	}
 	
 	@Test
 	public void isAlarmOnWhenPressureThreshold() {
-		Sensor sensor = sensorSensoring(17.0);
+		PressureSensor sensor = sensorSensoring(17.0);
 		
 		Alarm alarm = new Alarm(sensor);
 		
 		alarm.check();
-		assertEquals(alarm.isAlarmOn(), false);
+		assertEquals(false,alarm.isAlarmOn() );
 	}
 	
 	@Test
 	public void isAlarmStillOn() {
-		Sensor sensor = sensorSensoring(16.0);
+		PressureSensor sensor = sensorSensoring(16.0);
 		
 		
 		Alarm alarm = new Alarm(sensor);
 		alarm.check();
-		assertEquals(alarm.isAlarmOn(), true);
+		assertEquals( true,alarm.isAlarmOn());
 		
 		sensor = sensorSensoring(20.0);
 		alarm.check();
-		assertEquals(alarm.isAlarmOn(), true);
+		assertEquals(true, alarm.isAlarmOn());
 	}
-	private Sensor sensorSensoring(double value) {
-		Sensor sensor = mock(Sensor.class);
-		when(sensor.probePressureValue()).thenReturn(value);
+	private PressureSensor sensorSensoring(double value) {
+		PressureSensor sensor = mock(PressureSensor.class);
+		when(sensor.probeValue()).thenReturn(value);
 		return sensor;
 	}
 }

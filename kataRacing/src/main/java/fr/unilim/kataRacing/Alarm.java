@@ -1,25 +1,26 @@
 package fr.unilim.kataRacing;
 
 public class Alarm {
-	private final double LowPressureThreshold = 17;
-	private final double HighPressureThreshold = 21;
+	private static final  double LowThreshold = 17;
+	private static final  double HighThreshold = 21;
 
-	Sensor sensor = new Sensor();
+	PressureSensor sensor;
 
 	boolean alarmOn;
 
 	public Alarm() {
+		this(new PressureSensor());
 	}
 
-	public Alarm(Sensor sensor) {
-		this.sensor = sensor;
+	public Alarm(PressureSensor sensor2) {
+		this.sensor = sensor2;
 		this.alarmOn = false;
 	}
 
 	public void check() {
-		double psiPressureValue = sensor.probePressureValue();
+		double psiValue = sensor.probeValue();
 
-		if (pressureNotGood(psiPressureValue)) {
+		if (pressureNotGood(psiValue)) {
 			setAlarmOn();
 		}
 	}
@@ -28,16 +29,16 @@ public class Alarm {
 		alarmOn = true;
 	}
 
-	private boolean pressureNotGood(double psiPressureValue) {
-		return pressureLow(psiPressureValue) || pressureHigh(psiPressureValue);
+	private boolean pressureNotGood(double psiValue) {
+		return pressureLow(psiValue) || pressureHigh(psiValue);
 	}
 
-	private boolean pressureHigh(double psiPressureValue) {
-		return HighPressureThreshold < psiPressureValue;
+	private boolean pressureHigh(double psiValue) {
+		return HighThreshold < psiValue;
 	}
 
-	private boolean pressureLow(double psiPressureValue) {
-		return psiPressureValue < LowPressureThreshold;
+	private boolean pressureLow(double psiValue) {
+		return psiValue < LowThreshold;
 	}
 
 	public boolean isAlarmOn() {
