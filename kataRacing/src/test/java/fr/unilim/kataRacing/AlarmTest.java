@@ -33,5 +33,14 @@ public class AlarmTest{
 		assertEquals(alarm.isAlarmOn(), true);
 	}
 	
-	
+	@Test
+	public void isAlarmOnWhenPressureThreshold() {
+		Sensor sensor = mock(Sensor.class);
+		when(sensor.popNextPressurePsiValue()).thenReturn(17.0);
+		
+		Alarm alarm = new Alarm(sensor);
+		
+		alarm.check();
+		assertEquals(alarm.isAlarmOn(), false);
+	}
 }
