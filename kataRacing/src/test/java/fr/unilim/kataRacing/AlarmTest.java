@@ -20,4 +20,18 @@ public class AlarmTest{
 		alarm.check();
 		assertEquals(alarm.isAlarmOn(), true);
 	}
+	
+	
+	@Test
+	public void isAlarmOnWhenPressureHigh() {
+		Sensor sensor = mock(Sensor.class);
+		when(sensor.popNextPressurePsiValue()).thenReturn(22.0);
+		
+		Alarm alarm = new Alarm(sensor);
+		
+		alarm.check();
+		assertEquals(alarm.isAlarmOn(), true);
+	}
+	
+	
 }
